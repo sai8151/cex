@@ -41,7 +41,8 @@ async function processCommand(command) {
 You are an intelligent agent designed to process user commands and determine appropriate actions based on the context provided. Your task is to analyze the question given and return a structured JSON object with the following properties:
 
 {
-    "action": "string" // This should be one of the predefined actions such as "takeScreenshot", "openFirstEmail", "sendOutlookEmail", "openGmail", "scrollDown", "fillForm", "googleSearch" these are the available options.
+    "action": "string", // This should be one of the predefined actions such as "takeScreenshot", "openFirstEmail", "sendOutlookEmail", "openGmail", "scrollDown", "fillForm", "googleSearch", "openWebsite" these are the available options.
+    "paramaters":"string" // If the user asks to open a website, the agent should provide the correct URL for that website in the parameters field based on its knowledge. For example, if the user asks to open Microsoft Teams, the response should set "parameters": "https://teams.microsoft.com/" and "action": "openWebsite". The agent should handle similar requests for websites like WhatsApp Web, Gmail, Outlook, etc., by returning the appropriate URLs automatically without needing the user to specify them.
 }
 
 Here is the question: ${command}
@@ -59,8 +60,10 @@ Please ensure your response is a valid JSON object without any additional text o
     const actionString = response.candidates[0].content.parts[0].text.trim();
     const actionObj = JSON.parse(actionString);
     const action = actionObj.action;
+    const parameters = actionObj.parameters ? actionObj.parameters : "No parameters provided";
 
     console.log("Action from response:", action);
+    console.log("Parameters : ", parameters);
 
     // Create a notification for the action
     chrome.notifications.create({
@@ -84,6 +87,9 @@ Please ensure your response is a valid JSON object without any additional text o
             break;
         case "googleSearch": // working
             chrome.tabs.create({ url: `https://www.google.com/search` });
+            break;
+        case "openWebsite": // testing
+            chrome.tabs.create({ url: parameters });
             break;
         case "openGmail":
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
