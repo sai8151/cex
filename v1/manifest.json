@@ -1,0 +1,46 @@
+{
+    "manifest_version": 3,
+    "name": "AI Browser Agent",
+    "version": "1.0",
+    "description": "An AI agent that controls the browser based on user commands.",
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "scripting",
+        "storage",
+        "notifications"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_title": "AI Browser Agent",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "css": [
+                "styles.css"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "floatingBar.html"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

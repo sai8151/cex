@@ -1,0 +1,44 @@
+body {
+    width: 300px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#floating-search-bar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.074);
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#command-input {
+    width: 250px;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+#submit-command {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#submit-command:hover {
+    background-color: #3367d6;
+}
